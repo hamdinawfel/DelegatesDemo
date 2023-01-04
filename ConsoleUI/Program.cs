@@ -15,13 +15,42 @@ namespace ConsoleUI
         {
             PopulateCartWithDemoData();
 
-            Console.WriteLine($"The total for the cart is {cart.GenerateTotal()} ");
+            Console.WriteLine($"The total for the cart is {cart.GenerateTotal(InformCustomer, CalculateSubTotal, AlertCustomer)} ");
 
             Console.WriteLine();
             Console.Write("Please press any key to exit the application...");
             Console.ReadKey();
         }
 
+        private static void InformCustomer(decimal subTotal)
+        {
+            Console.WriteLine($"Your discount is {subTotal}");
+        }
+
+        private static decimal CalculateSubTotal(List<ProductModel> items, decimal subTotal)
+        {
+            if (subTotal > 100)
+            {
+                return subTotal * 0.80M;
+            }
+            else if (subTotal > 50)
+            {
+                return subTotal * 0.85M;
+            }
+            else if (subTotal > 10)
+            {
+                return subTotal * 0.90M;
+            }
+            else
+            {
+                return subTotal;
+            }
+        }
+        
+        private static void AlertCustomer(string message)
+        {
+            Console.WriteLine(message);
+        }
         private static void PopulateCartWithDemoData()
         {
             cart.Items.Add(new ProductModel { ItemName = "Cereal", Price = 3.63M });
