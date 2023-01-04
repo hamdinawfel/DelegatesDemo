@@ -15,7 +15,7 @@ namespace ConsoleUI
         {
             PopulateCartWithDemoData();
 
-            
+            Console.WriteLine($"The total for the cart is {cart.GenerateTotal()} ");
 
             Console.WriteLine();
             Console.Write("Please press any key to exit the application...");
