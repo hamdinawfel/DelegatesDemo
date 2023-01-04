@@ -14,8 +14,25 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             PopulateCartWithDemoData();
+            Console.WriteLine("-------------------- SHOPPING CART SUMMARY -----------------------");
+            Console.WriteLine($"The total for the cart 1 is {cart.GenerateTotal(InformCustomer, CalculateSubTotal, AlertCustomer)} ");
+            Console.WriteLine("-------------------------------------------------------");
+            decimal total = cart.GenerateTotal((subTotal)=> Console.WriteLine($"Your discount for Cart 2 is: {subTotal}"),
+                (products, subTotal) =>
+                {
+                    if(products.Count > 3)
+                    {
+                        return subTotal * 0.50M;
+                    }
+                    else
+                    {
+                        return subTotal;
+                    }
+                },
+                (message) => Console.WriteLine("This is an discout alert msg for cart 2"));
 
-            Console.WriteLine($"The total for the cart is {cart.GenerateTotal(InformCustomer, CalculateSubTotal, AlertCustomer)} ");
+            Console.WriteLine($"The total for the cart 2 is {total}");
+
 
             Console.WriteLine();
             Console.Write("Please press any key to exit the application...");
@@ -24,7 +41,7 @@ namespace ConsoleUI
 
         private static void InformCustomer(decimal subTotal)
         {
-            Console.WriteLine($"Your discount is {subTotal}");
+            Console.WriteLine($"Your discount for cart 1 is: {subTotal}");
         }
 
         private static decimal CalculateSubTotal(List<ProductModel> items, decimal subTotal)

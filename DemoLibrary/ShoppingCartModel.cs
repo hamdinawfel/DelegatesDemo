@@ -18,7 +18,7 @@ namespace DemoLibrary
            decimal subTotal = Items.Sum(x=>x.Price);
 
             mentionSubTotal(subTotal);
-            alertCustomer("This is an discout alert discouting msg");
+            alertCustomer("This is an discout alert for cart 1");
             return calculateDiscount(Items, subTotal);
         }
     }
